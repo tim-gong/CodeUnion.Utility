@@ -1,0 +1,22 @@
+/// <summary>
+        /// 将Excel作为邮件附件发送
+        /// </summary>
+        /// <param name="filepath"></param>
+        private bool SendEmail(string filepath)//,IEnumerable<string> rows)
+        {
+            if (string.IsNullOrEmpty(filepath))
+            {
+                return false;
+            }
+            EmailInfo emailinfo = new EmailInfo();
+            emailinfo.EmailTitle = DateTime.Now.ToString("yyyy-MM-dd") + "-Google Analytics统计数据";
+            emailinfo.EmailBody = emailinfo.EmailTitle;//+"<br><br>";
+            List<string> emailto = new List<string>();
+            emailto.Add("liupengfei@360buy.com");
+            emailto.Add("guochuande@360buy.com");
+            emailinfo.EmailTo = emailto;
+            List<string> emailAttachments = new List<string>();
+            emailAttachments.Add(filepath);
+            emailinfo.EmailAttachments = emailAttachments;
+            return EmailSend.SendEmail(emailinfo);
+        }
